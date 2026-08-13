@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Serif+SC:wght@400;600;900&family=Inter:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Inter", sans-serif;
+  overflow-x: clip;
+}
+
+@layer base {
+  :root {
+    --background: 40 33% 96%;
+    --foreground: 20 14% 12%;
+    --card: 40 30% 98%;
+    --card-foreground: 20 14% 12%;
+    --popover: 40 30% 98%;
+    --popover-foreground: 20 14% 12%;
+    --primary: 158 42% 22%;
+    --primary-foreground: 40 33% 96%;
+    --secondary: 40 24% 90%;
+    --secondary-foreground: 158 42% 18%;
+    --muted: 40 20% 91%;
+    --muted-foreground: 25 10% 40%;
+    --accent: 40 45% 88%;
+    --accent-foreground: 158 42% 18%;
+    --destructive: 0 70% 42%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 36 20% 84%;
+    --input: 36 20% 84%;
+    --ring: 158 42% 22%;
+    --radius: 0.25rem;
+    --gold: 38 55% 48%;
+    --jade: 158 42% 30%;
+  }
+  .dark {
+    --background: 20 14% 8%;
+    --foreground: 40 30% 90%;
+    --card: 20 14% 11%;
+    --card-foreground: 40 30% 90%;
+    --popover: 20 14% 11%;
+    --popover-foreground: 40 30% 90%;
+    --primary: 158 38% 52%;
+    --primary-foreground: 20 14% 8%;
+    --secondary: 20 12% 16%;
+    --secondary-foreground: 40 30% 90%;
+    --muted: 20 12% 16%;
+    --muted-foreground: 40 12% 62%;
+    --accent: 20 12% 18%;
+    --accent-foreground: 40 30% 90%;
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 20 12% 20%;
+    --input: 20 12% 20%;
+    --ring: 158 38% 52%;
+    --gold: 40 60% 58%;
+    --jade: 158 38% 55%;
+  }
+}
+
+@layer base {
+  * { border-color: hsl(var(--border)); }
+  body { background-color: hsl(var(--background)); color: hsl(var(--foreground)); }
+  h1, h2, h3, h4, .font-serif { font-family: "Cormorant Garamond", "Noto Serif SC", serif; }
+}
+
+@layer utilities {
+  .text-gold { color: hsl(var(--gold)); }
+  .text-jade { color: hsl(var(--jade)); }
+  .bg-jade { background-color: hsl(var(--jade)); }
+  .border-gold { border-color: hsl(var(--gold)); }
+  .font-hei { font-family: "Noto Serif SC", serif; }
+  .paper-texture {
+    background-image: radial-gradient(hsl(var(--foreground) / 0.03) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .prose-ink { line-height: 1.85; }
+  .prose-ink p { margin-bottom: 1.1rem; }
+}
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.animate-fade-up { animation: fadeUp 0.7s ease-out both; }
+@media (prefers-reduced-motion: reduce) { .animate-fade-up { animation: none; } }
