@@ -1,7 +1,9 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { useLocation } from 'react-router-dom';
 
 export default function Seo({ title, description, image, type = 'website' }) {
+  const { pathname } = useLocation();
   const fullTitle = title ? `${title}` : 'Spirit Root — Chinese Cultivation Culture & Xianxia';
   const desc =
     description ||
@@ -9,6 +11,7 @@ export default function Seo({ title, description, image, type = 'website' }) {
   return (
     <Helmet>
       <title>{fullTitle}</title>
+      <link rel="canonical" href={`https://spiritroot.online${pathname}`} />
       <meta name="description" content={desc} />
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={desc} />

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import pb from '@/lib/pocketbaseClient';
 import Layout from '@/components/Layout';
 import { Helmet } from 'react-helmet';
@@ -19,6 +19,7 @@ function formatDate(d, lang) {
 
 export default function PractitionersPage() {
   const { t, lang } = useLang();
+  const location = useLocation();
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [params, setParams] = useSearchParams();
@@ -48,6 +49,7 @@ export default function PractitionersPage() {
   return (
     <Layout>
       <Helmet>
+        <link rel="canonical" href={`https://spiritroot.online${location.pathname}`} />
         <title>{t('修行人著述 — Spirit Root', 'Practitioner Writings — Spirit Root')}</title>
         <meta
           name="description"

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { ExternalLink } from 'lucide-react';
 import pb from '@/lib/pocketbaseClient';
 import Layout from '@/components/Layout';
@@ -20,6 +20,7 @@ function formatDate(d, lang) {
 
 export default function AuthorPage() {
   const { authorSlug } = useParams();
+  const location = useLocation();
   const { t, lang } = useLang();
   const rawPractitioner = getPractitioner(authorSlug);
   const practitioner = rawPractitioner ? localizePractitioner(rawPractitioner, lang) : null;
@@ -104,6 +105,7 @@ export default function AuthorPage() {
   return (
     <Layout>
       <Helmet>
+        <link rel="canonical" href={`https://spiritroot.online${location.pathname}`} />
         <title>{practitioner.name} — {t('修行人著述', 'Practitioner Writings')} | Spirit Root</title>
         <meta
           name="description"
