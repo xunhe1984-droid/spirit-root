@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import pb from '@/lib/pocketbaseClient';
 
 function CommentItem({ c, replies, onReply }) {
   return (
@@ -34,8 +33,8 @@ export default function Comments({ articleId }) {
   const [status, setStatus] = useState('');
 
   const load = () => {
-    pb.collection('comments')
-      .getFullList({ filter: `article = "${articleId}" && approved = true`, sort: 'created' })
+    fetch(`/api/comments?article=${encodeURIComponent(articleId)}`)
+      .then((r) => (r.ok ? r.json() : []))
       .then(setComments)
       .catch(() => {});
   };
@@ -47,17 +46,23 @@ export default function Comments({ articleId }) {
     if (!form.body.trim()) return;
     setStatus('sending');
     try {
-      await pb.collection('comments').create({
-        article: articleId,
-        authorName: form.authorName,
-        authorEmail: form.authorEmail,
-        body: form.body,
-        parent: replyTo ? replyTo.id : '',
-        approved: false,
+      const resp = await fetch('/api/comments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          article: articleId,
+          authorName: form.authorName,
+          authorEmail: form.authorEmail,
+          body: form.body,
+          parent: replyTo ? replyTo.id : '',
+          website: form.website,
+        }),
       });
+      if (!resp.ok) throw new Error('submit failed');
       setForm({ authorName: '', authorEmail: '', body: '', website: '' });
       setReplyTo(null);
       setStatus('done');
+      load(); // 刷新评论列表
     } catch {
       setStatus('error');
     }
