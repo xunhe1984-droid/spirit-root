@@ -35,7 +35,3 @@
 /wiki/doufukuai-meditation-diary  /  301
 /wiki/doufukuai-tofu-insight  /  301
 /wiki/doufukuai-ordinary-practice  /  301
-
-# SPA 路由回退：其余路径加载 index.html
-/*  /index.html  200
-
