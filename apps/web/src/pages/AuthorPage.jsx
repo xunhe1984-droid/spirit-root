@@ -65,7 +65,7 @@ export default function AuthorPage() {
   useEffect(() => {
     if (!authorSlug) return;
     let active = true;
-    const otherSlugs = PRACTITIONERS.filter((p) => p.slug !== authorSlug).map((p) => p.slug);
+    const otherSlugs = PRACTITIONERS.filter((p) => p.slug !== authorSlug && !p.hidden).map((p) => p.slug);
     if (!otherSlugs.length) return;
     const filter = otherSlugs.map((s) => `author = "${s}"`).join(' || ');
     pb.collection('articles')
@@ -147,16 +147,14 @@ export default function AuthorPage() {
               <div className="mt-4 space-y-3 text-left">
                 <div>
                   <h2 className="text-xs font-semibold uppercase tracking-widest text-jade">{t('人物简介', 'Profile')}</h2>
-                  <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground sm:text-base">
+                  <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
                     {practitioner.intro}
                   </p>
                 </div>
                 {practitioner.bio && (
                   <div>
                     <h2 className="text-xs font-semibold uppercase tracking-widest text-jade">{t('生平介绍', 'Biography')}</h2>
-                    <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground sm:text-base">
-                      {practitioner.bio}
-                    </p>
+                    <div className="mt-1.5 text-sm leading-relaxed text-muted-foreground prose-ink" dangerouslySetInnerHTML={{ __html: practitioner.bio }} />
                   </div>
                 )}
               </div>

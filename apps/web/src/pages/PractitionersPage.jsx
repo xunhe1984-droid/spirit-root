@@ -4,7 +4,7 @@ import pb from '@/lib/pocketbaseClient';
 import Layout from '@/components/Layout';
 import { Helmet } from 'react-helmet';
 import { Breadcrumb } from '@/components/bits';
-import { PRACTITIONERS, localizePractitioner } from '@/lib/practitioners';
+import { PRACTITIONERS, getVisiblePractitioners, localizePractitioner } from '@/lib/practitioners';
 import { useLang } from '@/contexts/LanguageContext';
 import { splitTags } from '@/lib/articleI18n';
 
@@ -43,7 +43,7 @@ export default function PractitionersPage() {
     );
   }, [articles, q]);
 
-  const practitioners = PRACTITIONERS.map((p) => localizePractitioner(p, lang));
+  const practitioners = getVisiblePractitioners().map((p) => localizePractitioner(p, lang));
 
   return (
     <Layout>

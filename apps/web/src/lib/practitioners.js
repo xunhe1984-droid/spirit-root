@@ -9,17 +9,50 @@ export const PRACTITIONERS = [
     nameEn: 'Master Qingliangyue',
     avatar: 'https://images.hostinger.com/b0ca89f0-89f1-437e-a994-678a3c33ae12.png',
     intro:
-      '一位致力于禅修与止观教学的修行人，强调止观双运与日常觉照，教学平实而重实证。',
+      '融会贯通儒释道传统文化与现代科学，创立了"思维本体学"体系，致力于以科学化、可操作的方式指导实证修行与本源中医学习。',
     introEn:
-      'A practitioner devoted to teaching meditation and śamatha-vipaśyanā, emphasizing the union of stillness and insight together with everyday mindfulness — practical, grounded instruction focused on direct experience.',
-    bio: '长期以止观为核心开展教学与答疑，主张在动中、静中都能保持觉知。内容整理侧重方法脉络、常见误区与日常落地，便于学人循序渐进地建立稳定的修习习惯。本站所载为其著述的概括性整理，非原文转载。',
+      'Master Qingliangyue, real name Li Penggang, is a licensed traditional Chinese medicine practitioner, an awakened practitioner, and the founder of the Ontology of Thinking system.',
+    bio: `<p>一、基础背景</p>
+<ul>
+<li><strong>出生信息</strong>：1970年出生于河南省南阳市，自幼对中华传统文化兴趣浓厚，尤其喜爱周易、气功相关内容。</li>
+<li><strong>教育背景</strong>：毕业于河南中医药大学，在校期间跟随学校气功教研室老师专修气功，在实证层面达到较高层次。</li>
+</ul>
+
+<p>二、关键人生节点</p>
+<ul>
+<li><strong>2004年</strong>：此前长期研修道家理论，发现实证境界易退失的问题，接触佛法后取得根本突破，彻底解决该问题，实现儒释道核心原理的融会贯通。</li>
+<li><strong>2011-2016年</strong>：在医院担任中医师，同时开展实证与现代科学结合的研究工作，陆续完成《思维现象基础研究》《科学实证》《西游解读》系列专著的撰写。</li>
+<li><strong>2017年</strong>：从医院辞职，专职开展科学化实证教学工作，开设《实证理论》《禅修》《欲界定》三门网络课程，搭建配套助教团队。</li>
+</ul>
+
+<p>三、核心成果</p>
+<ul>
+<li>创立"思维本体学"体系，用现代科学语言重新诠释传统佛道修行内容，打破不同修行体系的壁垒，形成可重复操作的系统化实修方法。</li>
+<li>教学前3年就取得近百人证入禅定、数百人证入欲界定的成果，推动传统实修内容去玄学化，向大众化、学科化方向普及。</li>
+</ul>`,
     bioEn:
-      'For many years the teaching has centered on śamatha-vipaśyanā, holding that awareness can be maintained whether in motion or in stillness. The compiled material focuses on the framework of method, common pitfalls, and everyday application, helping students build a stable practice step by step. What appears here is a summary arrangement of the writings, not a reproduction of original transcripts.',
+      `<p>I. Basic Background</p>
+<ul>
+<li><strong>Birth Information</strong>: Born in 1970 in Nanyang City, Henan Province. Showed strong interest in traditional Chinese culture from an early age, particularly in I Ching and qigong.</li>
+<li><strong>Educational Background</strong>: Graduated from Henan University of Chinese Medicine, where he specialized in qigong under the school's qigong research faculty, achieving high levels in empirical practice.</li>
+</ul>
+
+<p>II. Key Life Milestones</p>
+<ul>
+<li><strong>2004</strong>: After long-term study of Daoist theory, discovered the problem of easily losing empirical states. Made a fundamental breakthrough after encountering Buddhism, completely solving this issue and achieving integration of core principles from Confucianism, Buddhism, and Daoism.</li>
+<li><strong>2011-2016</strong>: Practiced as a TCM doctor in a hospital while conducting research combining empirical practice with modern science, completing the series of works "Fundamental Research on Thought Phenomena," "Scientific Empiricism," and "Journey to the West Interpretation."</li>
+<li><strong>2017</strong>: Resigned from the hospital to focus on scientific empirical teaching, launching three online courses: "Empirical Theory," "Meditation," and "Desire Boundary Definition," with an accompanying teaching assistant team.</li>
+</ul>
+
+<p>III. Core Achievements</p>
+<ul>
+<li>Founded the "Ontology of Thinking" system, using modern scientific language to reinterpret traditional Buddhist and Daoist practice content, breaking barriers between different practice systems to form a repeatable, systematic approach to empirical practice.</li>
+<li>Within the first three years of teaching, achieved the result of nearly 100 people attaining meditative absorption and hundreds attaining desire boundary definition, driving traditional empirical content toward de-mystification and popularization.</li>
+</ul>`,
     tagline: '止观 · 禅修 · 觉照',
     taglineEn: 'Stillness & Insight · Meditation · Mindfulness',
     links: [
-      { label: '个人网站', labelEn: 'Personal Website', url: 'https://www.qingliangyue.com' },
-      { label: '相关资源', labelEn: 'Related Resources', url: 'https://www.qingliangyue.com' },
+      { label: '个人网站', labelEn: 'Personal Website', url: 'http://mindontology.com/' },
     ],
   },
   {
@@ -39,6 +72,7 @@ export const PRACTITIONERS = [
     links: [
       { label: '相关介绍', labelEn: 'Related Introduction', url: 'https://www.baidu.com/s?wd=%E6%9D%A8%E5%AE%81%E8%80%81%E5%B8%88%20%E4%BD%9B%E6%B3%95' },
     ],
+    hidden: true,
   },
 ];
 
@@ -49,6 +83,11 @@ export const PRACTITIONER_MAP = PRACTITIONERS.reduce((m, p) => {
 
 export function getPractitioner(slug) {
   return PRACTITIONER_MAP[slug];
+}
+
+// Return visible practitioners only
+export function getVisiblePractitioners() {
+  return PRACTITIONERS.filter(p => !p.hidden);
 }
 
 // Return a localized view of a practitioner for the given language.

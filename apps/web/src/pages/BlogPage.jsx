@@ -68,7 +68,7 @@ export default function BlogPage() {
           <SectionTitle kicker={t('Reflections', 'Reflections')} title={t('个人博客', 'Personal Blog')} />
           <p className="mt-4 max-w-2xl text-muted-foreground">
             {t(
-              '这里记录我对修行理论的学习与思考、相关思想的阅读札记，以及日常生活中的点滴体悟。内容为个人随笔，不代表任何传承或权威教导。',
+              '这里记录我对修行理论的学习与思考、相关思想的阅读札记，以及日常生活中的点滴体悟。内容为个人随笔，不代表任何传承或权威教导。待更新...',
               'Here I record my study and reflection on cultivation theory, reading notes on related thought, and small everyday insights. The content consists of personal essays and does not represent any lineage or authoritative teaching.',
             )}
           </p>
