@@ -1,0 +1,40 @@
+# 已删除文章 -> 404（避免软 404 影响 SEO）
+/wiki/spirit-root  /404.html  404
+/wiki/qi  /404.html  404
+/wiki/golden-core  /404.html  404
+/wiki/cultivation-realms  /404.html  404
+/wiki/daoism  /404.html  404
+/blog/what-is-xianxia  /404.html  404
+/blog/fiction-vs-real-cultivation  /404.html  404
+/blog/why-xianxia-popular  /404.html  404
+/blog/meditation-journey  /404.html  404
+/wiki/han-li  /404.html  404
+/wiki/nan-gong-wan  /404.html  404
+/wiki/fairy-violet-spirit  /404.html  404
+/wiki/cultivation-realms-fanren  /404.html  404
+/wiki/breakthrough-tribulation  /404.html  404
+/wiki/qingyuan-sword-art  /404.html  404
+/wiki/great-development-technique  /404.html  404
+/wiki/provenance-true-devil-art  /404.html  404
+/wiki/seventy-two-flying-swords  /404.html  404
+/wiki/heaven-earth-spirit-flame  /404.html  404
+/wiki/luoyun-sect  /404.html  404
+/wiki/nine-kingdoms-alliance  /404.html  404
+/wiki/weeping-soul-beast  /404.html  404
+/wiki/leopard-kirin-beast  /404.html  404
+/wiki/tiannan-region  /404.html  404
+/wiki/spirit-realm  /404.html  404
+/wiki/plot-timeline-mortal-world  /404.html  404
+/wiki/plot-timeline-spirit-realm  /404.html  404
+/wiki/glossary-linggen  /404.html  404
+/wiki/glossary-dan-fang  /404.html  404
+/wiki/glossary-magic-treasure-grades  /404.html  404
+/wiki/yangning-nature-of-mind  /404.html  404
+/wiki/yangning-scripture-practice  /404.html  404
+/wiki/yangning-affliction-bodhi  /404.html  404
+/wiki/doufukuai-meditation-diary  /404.html  404
+/wiki/doufukuai-tofu-insight  /404.html  404
+/wiki/doufukuai-ordinary-practice  /404.html  404
+
+# SPA 路由回退：其余路径加载 index.html
+/*  /index.html  200
