@@ -56,9 +56,13 @@ for (const p of PRACTITIONERS) {
   });
 }
 
-// 已发布文章
+// 仅收录"可见修行人"的文章（隐藏修行人的文章不进入 sitemap）
+const visibleAuthorSlugs = new Set(
+  PRACTITIONERS.filter((p) => !p.hidden).map((p) => p.slug),
+);
 for (const a of articlesData) {
   if (a.status !== 'published') continue;
+  if (!a.author || !visibleAuthorSlugs.has(a.author)) continue;
   entries.push({
     loc: `${SITE}/${a.type}/${a.slug}`,
     lastmod: toDateStr(a.updated || a.publishAt || a.created),
