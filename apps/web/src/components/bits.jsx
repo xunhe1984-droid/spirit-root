@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
+import { useLang } from '@/contexts/LanguageContext';
 
 export function Breadcrumb({ items }) {
   return (
@@ -26,6 +27,7 @@ export function Tag({ children, to }) {
 }
 
 export function ArticleCard({ a }) {
+  const { t } = useLang();
   const href = `/${a.type}/${a.slug}`;
   return (
     <Link
@@ -41,7 +43,7 @@ export function ArticleCard({ a }) {
         {a.category && <span className="mb-2 text-[11px] uppercase tracking-widest text-gold">{a.category}</span>}
         <h3 className="font-serif text-xl font-semibold leading-snug group-hover:text-jade">{a.title}</h3>
         <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground line-clamp-3">{a.excerpt}</p>
-        <span className="mt-4 text-xs font-medium text-jade">Read more →</span>
+        <span className="mt-4 text-xs font-medium text-jade">{t('阅读全文 →', 'Read full article →')}</span>
       </div>
     </Link>
   );

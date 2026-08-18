@@ -2,11 +2,17 @@
  * 评论 API（Cloudflare Pages Functions + D1 数据库）
  *
  * GET  /api/comments?article=<articleId>
- *   返回某篇文章的已批准评论（按时间升序）
+ *   返回某篇文章的已批准评论（公开）
+ *
+ * GET  /api/comments
+ *   返回全部评论（管理用，需 x-admin-key 头）
  *
  * POST /api/comments
  *   body: { article, authorName, authorEmail, body, parent, website }
  *   website 为蜜罐字段（防垃圾），填写则静默成功
+ *
+ * DELETE /api/comments?id=<id>
+ *   删除评论（管理用，需 x-admin-key 头）
  */
 
 function json(data, init = {}) {
@@ -16,15 +22,33 @@ function json(data, init = {}) {
   });
 }
 
+function checkAdmin(context) {
+  const key = context.request.headers.get('x-admin-key');
+  return key && key === (context.env.ADMIN_KEY || '');
+}
+
 // 读取评论列表
 export async function onRequestGet(context) {
   const url = new URL(context.request.url);
   const article = (url.searchParams.get('article') || '').trim();
-  if (!article) {
-    return json({ error: 'article is required' }, { status: 400 });
-  }
 
   try {
+    // 无 article 参数 → 全部评论（管理用）
+    if (!article) {
+      if (!checkAdmin(context)) {
+        return json({ error: 'unauthorized' }, { status: 401 });
+      }
+      const { results } = await context.env.DB.prepare(
+        `SELECT c.id, c.article, c.authorName, c.authorEmail, c.body, c.parent, c.created, c.approved,
+                COALESCE(a.title, '') as articleTitle, COALESCE(a.titleEn, '') as articleTitleEn
+         FROM comments c
+         LEFT JOIN articles a ON c.article = a.id
+         ORDER BY c.created DESC`
+      ).all();
+      return json(results || []);
+    }
+
+    // 有 article 参数 → 公开评论
     const { results } = await context.env.DB.prepare(
       `SELECT id, article, authorName, body, parent, created
        FROM comments
@@ -85,6 +109,27 @@ export async function onRequestPost(context) {
     return json({ ok: true, id });
   } catch (e) {
     console.error('DB insert error:', e);
+    return json({ error: 'database error' }, { status: 500 });
+  }
+}
+
+// 删除评论
+export async function onRequestDelete(context) {
+  if (!checkAdmin(context)) {
+    return json({ error: 'unauthorized' }, { status: 401 });
+  }
+
+  const url = new URL(context.request.url);
+  const id = (url.searchParams.get('id') || '').trim();
+  if (!id) {
+    return json({ error: 'id is required' }, { status: 400 });
+  }
+
+  try {
+    await context.env.DB.prepare('DELETE FROM comments WHERE id = ?').bind(id).run();
+    return json({ ok: true });
+  } catch (e) {
+    console.error('DB delete error:', e);
     return json({ error: 'database error' }, { status: 500 });
   }
 }

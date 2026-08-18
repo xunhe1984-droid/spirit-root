@@ -4,10 +4,10 @@ import { useLocation } from 'react-router-dom';
 
 export default function Seo({ title, description, image, type = 'website' }) {
   const { pathname } = useLocation();
-  const fullTitle = title ? `${title}` : 'Spirit Root — Chinese Cultivation Culture & Xianxia';
+  const fullTitle = title ? `${title}` : 'Spirit Root — Cultivation Theory & Practice';
   const desc =
     description ||
-    'A personal knowledge website dedicated to Chinese cultivation culture, Xianxia fiction, Daoist philosophy, and Buddhist practice.';
+    'A personal knowledge site compiling cultivation theory and related thought, collecting practitioner writings, and recording personal study notes and everyday reflections.';
   return (
     <Helmet>
       <title>{fullTitle}</title>
