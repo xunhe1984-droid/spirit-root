@@ -11,8 +11,8 @@ export default function AboutPage() {
       <Seo
         title={t('关于 — Spirit Root', 'About — Spirit Root')}
         description={t(
-          '关于本站：整理修行理论与相关思想，收录修行人著述，并以个人博客记录学习札记与日常体悟。',
-          'About this site: compiling cultivation theory and related thought, collecting practitioner writings, and recording personal study notes and everyday reflections in a blog.',
+          '关于 Spirit Root：整理修行理论与相关思想，收录修行人著述，记录学习札记与体悟。',
+          'About Spirit Root: Compiling cultivation theory and related thought, collecting practitioner writings, and recording study notes and reflections.',
         )}
       />
       <div className="mx-auto max-w-[52rem] px-5 py-12">
@@ -28,33 +28,26 @@ export default function AboutPage() {
         <div className="prose-ink mt-8 space-y-5 text-[1.05rem] leading-relaxed text-foreground/90">
           <p>
             {t(
-              'Spirit Root 是一个个人知识网站，旨在平实、清晰地整理修行理论与相关思想，并以开放的「修行人著述」专区收录各位修行人的文章。',
-              'Spirit Root is a personal knowledge site that aims to compile cultivation theory and related thought plainly and clearly, and to collect the writings of practitioners in an open Practitioner Writings section.',
+              'Spirit Root 是一个关于传统实修与心性理论的个人知识网站，旨在平实、清晰地梳理各门派的实证脉络与核心思想。',
+              'Spirit Root is a personal knowledge hub dedicated to traditional cultivation and mind-nature theories, aiming to present empirical paths and core insights plainly and clearly.',
             )}
           </p>
           <p>
             {t(
-              '网站的「修行人著述」专区收录修行人的文章，涵盖禅修止观、心性经典与平凡生活中的修行体悟；是个人认为比较有参考价值的资料，「个人博客」则记录我自己的学习札记、阅读笔记与日常点滴。',
-              'The Practitioner Writings section collects articles by practitioners, covering meditation and insight, mind-nature and the classics, and the practice of ordinary life; the Personal Blog records my own study notes, reading notes, and everyday moments.',
+              '「修行人著述」专区汇集具有实证参考价值的修行人文章，涵盖禅修止观、心性发微与日常觉照；「个人博客」则用于记录个人的研读札记与实修心得。',
+              'The "Practitioner Writings" section curates valuable empirical articles covering meditation, insight practice, and daily mindfulness; the "Personal Blog" records personal study notes and reflections.',
             )}
           </p>
           <p>
             {t(
-              '内容均为收集自公开网站和概括性整理，保留清晰的空白结构以便逐步充实，修行理论以概括性介绍为主，相关思想以阅读札记形式呈现，博客则为个人随笔。',
-              'All content is an original summary arrangement, keeping a clear blank structure for gradual enrichment, and does not reproduce online articles or copyrighted original text. Cultivation theory is presented mainly as summary introductions, related thought as reading notes, and the blog as personal essays.',
+              '本站内容均采自公开资料并做系统性归纳，力求营造一个朴素、严谨的阅读空间。本站不代表任何宗派传承，亦无权威背书。',
+              'All content is systematically organized from public sources to provide a quiet, rigorous reading space. The site does not represent any specific lineage or authority.',
             )}
           </p>
-          <p>
+          <p className="rounded-lg border border-border/60 bg-muted/40 p-4 text-sm text-muted-foreground">
             {t(
-              '本站力求一个安静、朴素、可读的空间，既非娱乐站点，也不代表任何传承或权威教导，仅出于对修行理论与相关思想的好奇与尊重而作。',
-              'This site strives to be a quiet, plain, readable space. It is not an entertainment site, nor does it represent any lineage or authoritative teaching — it is made simply out of curiosity and respect for cultivation theory and related thought.',
-            )}
-          </p>
-
-          <p>
-            {t(
-              '所有文章仅供各位读者参考，本人不偏重任何修行法门，旨在集思广益。重要声明：请在有专业修行人指导下进行修炼，切勿盲修瞎练。',
-              'All articles are for reference only. The author does not favor any particular practice tradition and aims to gather insights from various sources. Important: Please practice under the guidance of a qualified teacher and do not practice blindly.',
+              '声明：所有内容仅供研讨参考，不偏立宗派。实修精深细微，请在明师指导下循序渐进，切勿盲修瞎练。',
+              'Disclaimer: All content is for study and reference only. Practice requires careful discernment; please study progressively under qualified guidance and avoid blind practice.',
             )}
           </p>
         </div>

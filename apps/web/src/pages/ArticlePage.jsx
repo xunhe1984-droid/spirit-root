@@ -142,6 +142,8 @@ export default function ArticlePage({ type }) {
           </div>
         )}
 
+        <Comments articleId={article.id} />
+
         {related.length > 0 && (
           <div className="mt-12 border-t pt-8">
             <h2 className="font-serif text-2xl font-semibold">{t('相关文章推荐', 'Related Articles')}</h2>
@@ -161,8 +163,6 @@ export default function ArticlePage({ type }) {
             </ul>
           </div>
         )}
-
-        <Comments articleId={article.id} />
       </article>
     </Layout>
   );

@@ -73,7 +73,7 @@ export default function PractitionersPage() {
             </h1>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground sm:text-base">
               {t(
-                '收录修行人的文章，涵盖禅修止观、心性经典与平凡生活中的修行体悟。这是一个开放的修行人著述收录平台，内容为原创概括性整理，逐步充实中。',
+                '收录修行人的文章，涵盖禅修止观、心性经典与平凡生活中的修行体悟。这是一个开放的修行人著述收录平台，内容为概括性整理，逐步充实中。',
                 'A collection of writings by practitioners, covering meditation and insight, mind-nature and the classics, and the practice of ordinary life. An open platform for practitioner writings — original summary content, gradually being enriched.',
               )}
             </p>

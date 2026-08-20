@@ -1,3 +1,135 @@
+
+// 本地开发模拟 /api/comments 端点
+const mockCommentsPlugin = () => {
+  let mockComments = [
+    {
+      id: 'mock-1',
+      article: 'guanxin000000001',
+      articleTitle: '【观心系列】一 能观心者究竟解脱',
+      authorName: '行者小李',
+      authorEmail: 'xiaoli@example.com',
+      body: '请问老师，日常动中观心如何保持不随境转？非常受用！',
+      parent: '',
+      created: new Date(Date.now() - 3600000 * 5).toISOString(),
+      approved: 1
+    },
+    {
+      id: 'mock-2',
+      article: 'guanxin000000001',
+      articleTitle: '【观心系列】一 能观心者究竟解脱',
+      authorName: '静心',
+      authorEmail: 'jingxin@example.com',
+      body: '借假修真，顿悟自性，这篇文章把观心的原理讲得太透彻了。',
+      parent: '',
+      created: new Date(Date.now() - 3600000 * 2).toISOString(),
+      approved: 1
+    },
+    {
+      id: 'mock-3',
+      article: '2bu3blxvh9y1izr',
+      articleTitle: '禅宗的实证步骤',
+      authorName: 'Alex Wang',
+      authorEmail: 'alex@mindstudy.org',
+      body: 'Excellent explanation of the three stages of Zen enlightenment.',
+      parent: '',
+      created: new Date(Date.now() - 3600000 * 24).toISOString(),
+      approved: 1
+    }
+  ];
+
+  return {
+    name: 'mock-comments-api',
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        const url = new URL(req.url, 'http://localhost');
+        if (url.pathname === '/api/comments') {
+          res.setHeader('Content-Type', 'application/json');
+          if (req.method === 'GET') {
+            const article = url.searchParams.get('article');
+            const visitorId = url.searchParams.get('visitorId') || '';
+            const withMine = (c) => ({ ...c, isMine: !!c.visitorId && c.visitorId === visitorId });
+            if (article) {
+              const list = mockComments.filter(c => c.article === article && c.approved).map(withMine);
+              res.end(JSON.stringify(list));
+            } else {
+              // 管理端获取全部（不过滤 isMine）
+              res.end(JSON.stringify(mockComments));
+            }
+            return;
+          }
+          if (req.method === 'PATCH') {
+            const id = url.searchParams.get('id');
+            const blocked = url.searchParams.get('blocked');
+            if (id && blocked !== null) {
+              const idx = mockComments.findIndex(c => c.id === id);
+              if (idx !== -1) {
+                // approved=1 正常显示，approved=0 已屏蔽
+                mockComments[idx].approved = blocked === '1' ? 0 : 1;
+                res.end(JSON.stringify({ ok: true }));
+              } else {
+                res.statusCode = 404;
+                res.end(JSON.stringify({ error: 'not found' }));
+              }
+            } else {
+              res.statusCode = 400;
+              res.end(JSON.stringify({ error: 'id and blocked required' }));
+            }
+            return;
+          }
+
+          if (req.method === 'DELETE') {
+            const id = url.searchParams.get('id');
+            const visitorId = url.searchParams.get('visitorId') || '';
+            const target = mockComments.find(c => c.id === id);
+            if (!target) {
+              res.statusCode = 404;
+              res.end(JSON.stringify({ error: 'not found' }));
+              return;
+            }
+            // 非管理员（无 x-admin-key）必须匹配评论的 visitorId 才能删除
+            if (!req.headers['x-admin-key'] && target.visitorId !== visitorId) {
+              res.statusCode = 403;
+              res.end(JSON.stringify({ error: 'unauthorized' }));
+              return;
+            }
+            mockComments = mockComments.filter(c => c.id !== id);
+            res.end(JSON.stringify({ success: true }));
+            return;
+          }
+          if (req.method === 'POST') {
+            let body = '';
+            req.on('data', chunk => body += chunk);
+            req.on('end', () => {
+              try {
+                const data = JSON.parse(body);
+                const newComment = {
+                  id: 'mock-' + Date.now(),
+                  article: data.article || '',
+                  articleTitle: '最新文章',
+                  authorName: data.authorName || 'Anonymous',
+                  authorEmail: data.authorEmail || '',
+                  body: data.body || '',
+                  parent: data.parent || '',
+                  visitorId: data.visitorId || '',
+                  created: new Date().toISOString(),
+                  approved: 1
+                };
+                mockComments.unshift(newComment);
+                res.end(JSON.stringify({ success: true, comment: newComment }));
+              } catch {
+                res.statusCode = 400;
+                res.end(JSON.stringify({ error: 'invalid json' }));
+              }
+            });
+            return;
+          }
+        }
+        next();
+      });
+    }
+  };
+};
+
 import path from 'node:path';
 import react from '@vitejs/plugin-react';
 import { createLogger, defineConfig } from 'vite';
@@ -367,12 +499,16 @@ logger.error = (msg, options) => {
 	loggerError(msg, options);
 }
 
+const excludedFromOptimize = ['playwright', 'playwright-core', 'fsevents', 'esbuild'];
+const depsToOptimize = allDeps.filter(d => !excludedFromOptimize.includes(d));
+
 export default defineConfig({
 	optimizeDeps: {
-		include: allDeps,
+		include: depsToOptimize,
+		exclude: excludedFromOptimize,
 	},
 	customLogger: logger,
-	plugins: [
+	plugins: [mockCommentsPlugin(), 
 		...(isDev ? [inlineEditPlugin(), editModeDevPlugin(), selectionModePlugin(), iframeRouteRestorationPlugin(), sitePagesPlugin(), pocketbaseAuthPlugin(), sessionJournalPlugin()] : []),
 		react(),
 		addTransformIndexHtml

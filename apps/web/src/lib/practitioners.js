@@ -64,9 +64,9 @@ export const PRACTITIONERS = [
       '长期讲授佛法与心性修养的修行人，注重经典研读与实修结合，引导学人认识心性本净。',
     introEn:
       'A practitioner who has long taught the Dharma and the cultivation of mind-nature, stressing the union of scripture study with practice, and guiding students to recognize the innate purity of mind.',
-    bio: '教学上强调以经典为依、以实修为验，常从心性本净、烦恼与觉照等主题展开。本站收录的相关文章为原创概括，帮助读者把握主线思想与修学要点，便于对照日常体验继续深入。',
+    bio: '教学上强调以经典为依、以实修为验，常从心性本净、烦恼与觉照等主题展开。本站收录的相关文章为概括整理，帮助读者把握主线思想与修学要点，便于对照日常体验继续深入。',
     bioEn:
-      'The teaching emphasizes scripture as the ground and practice as the test, often unfolding through themes such as the innate purity of mind-nature and the relationship between afflictions and awareness. The articles collected here are original summaries that help readers grasp the main threads and key points of study, making it easier to deepen through comparison with their own experience.',
+      'The teaching emphasizes scripture as the ground and practice as the test, often unfolding through themes such as the innate purity of mind-nature and the relationship between afflictions and awareness. The articles collected here are summaries that help readers grasp the main threads and key points of study, making it easier to deepen through comparison with their own experience.',
     tagline: '心性 · 经典 · 实修',
     taglineEn: 'Mind-Nature · Scripture · Practice',
     links: [

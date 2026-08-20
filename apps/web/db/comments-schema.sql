@@ -9,8 +9,12 @@ CREATE TABLE IF NOT EXISTS comments (
   body TEXT NOT NULL,
   parent TEXT DEFAULT '',
   created TEXT NOT NULL DEFAULT (datetime('now')),
-  approved INTEGER NOT NULL DEFAULT 1
+  approved INTEGER NOT NULL DEFAULT 1,
+  visitor_id TEXT DEFAULT ''
 );
+
+-- 已存在的数据库请执行下面这行（新库无需执行）：
+-- ALTER TABLE comments ADD COLUMN visitor_id TEXT DEFAULT '';
 
 CREATE INDEX IF NOT EXISTS idx_comments_article ON comments(article);
 CREATE INDEX IF NOT EXISTS idx_comments_parent ON comments(parent);

@@ -77,7 +77,7 @@ export default function HomePage() {
         <SectionTitle kicker={t('灵根 · The Foundation', 'Linggen · The Foundation')} title={t('关于本站', 'About')} center />
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
           {t(
-            '本站整理修行理论与相关思想，收录修行人的著述，并以个人博客记录学习札记与日常体悟。内容为原创概括性整理，逐步充实中，力求平实、清晰、可读。',
+            '本站整理修行理论与相关思想，收录修行人的著述，并以个人博客记录学习札记与日常体悟。内容为概括性整理，逐步充实中，力求平实、清晰、可读。',
             'This site compiles cultivation theory and related thought, collects the writings of practitioners, and records personal study notes and everyday reflections in a blog. The content is an original summary arrangement, gradually enriched, striving to be plain, clear, and readable.',
           )}
         </p>
