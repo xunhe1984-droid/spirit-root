@@ -38,7 +38,12 @@ export default function AdminPage() {
   const [submittingReply, setSubmittingReply] = useState(false);
 
   const api = async (url, opts = {}) => {
-    const headers = { ...opts.headers, 'x-admin-key': adminKey };
+    // ADMIN_KEY 可能含中文等非 Latin-1 字符，而 HTTP 请求头只允许 ISO-8859-1，
+    // 因此统一 base64 编码后发送（服务端解码比对）。
+    const bytes = new TextEncoder().encode(adminKey);
+    let bin = '';
+    bytes.forEach((b) => { bin += String.fromCharCode(b); });
+    const headers = { ...opts.headers, 'x-admin-key': 'b64:' + btoa(bin) };
     const resp = await fetch(url, { ...opts, headers });
     if (resp.status === 401) throw new Error('unauthorized');
     if (!resp.ok) throw new Error('request failed');

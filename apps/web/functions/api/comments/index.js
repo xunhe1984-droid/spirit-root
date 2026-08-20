@@ -24,7 +24,19 @@ function json(data, init = {}) {
 }
 
 function checkAdmin(context) {
-  const key = context.request.headers.get('x-admin-key');
+  const raw = context.request.headers.get('x-admin-key') || '';
+  // 前端把密钥 base64 编码后以 "b64:" 前缀发送（支持中文密钥），解码后比对。
+  // 不带前缀的请求（旧客户端/ASCII 密钥）直接按原值比对。
+  let key = raw;
+  if (raw.startsWith('b64:')) {
+    try {
+      const bin = atob(raw.slice(4));
+      const bytes = Uint8Array.from(bin, (ch) => ch.charCodeAt(0));
+      key = new TextDecoder().decode(bytes);
+    } catch {
+      key = '';
+    }
+  }
   return key && key === (context.env.ADMIN_KEY || '');
 }
 
