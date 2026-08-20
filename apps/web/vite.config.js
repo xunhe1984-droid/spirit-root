@@ -4,7 +4,7 @@ const mockCommentsPlugin = () => {
   let mockComments = [
     {
       id: 'mock-1',
-      article: 'guanxin000000001',
+      article: 'qingliangyue-guanxin-1',
       articleTitle: '【观心系列】一 能观心者究竟解脱',
       authorName: '行者小李',
       authorEmail: 'xiaoli@example.com',
@@ -15,7 +15,7 @@ const mockCommentsPlugin = () => {
     },
     {
       id: 'mock-2',
-      article: 'guanxin000000001',
+      article: 'qingliangyue-guanxin-1',
       articleTitle: '【观心系列】一 能观心者究竟解脱',
       authorName: '静心',
       authorEmail: 'jingxin@example.com',
@@ -26,7 +26,7 @@ const mockCommentsPlugin = () => {
     },
     {
       id: 'mock-3',
-      article: '2bu3blxvh9y1izr',
+      article: 'qingliangyue-chan-steps',
       articleTitle: '禅宗的实证步骤',
       authorName: 'Alex Wang',
       authorEmail: 'alex@mindstudy.org',

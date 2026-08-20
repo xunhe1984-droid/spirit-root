@@ -142,7 +142,7 @@ export default function ArticlePage({ type }) {
           </div>
         )}
 
-        <Comments articleId={article.id} />
+        <Comments articleId={article.slug} />
 
         {related.length > 0 && (
           <div className="mt-12 border-t pt-8">

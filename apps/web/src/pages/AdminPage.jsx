@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import Layout from '@/components/Layout';
 import Seo from '@/components/Seo';
+import articlesData from '@/lib/articlesData';
 
 const ADMIN_KEY_STORAGE = 'sr-admin-key';
 
@@ -10,6 +11,10 @@ function getStoredKey() {
 function storeKey(key) {
   try { localStorage.setItem(ADMIN_KEY_STORAGE, key); } catch {}
 }
+
+// 文章标题按 slug 解析（API 不再依赖 D1 的 articles 表）
+const articleTitleMap = {};
+articlesData.forEach((a) => { articleTitleMap[a.slug] = { title: a.title, titleEn: a.titleEn }; });
 
 function formatDate(d) {
   if (!d) return '';
@@ -169,7 +174,8 @@ export default function AdminPage() {
             <p className="py-12 text-center text-muted-foreground">暂无评论。</p>
           ) : (
             comments.map((c) => {
-              const articleTitle = c.articleTitleEn || c.articleTitle || c.article;
+              const mapTitle = articleTitleMap[c.article];
+              const articleTitle = c.articleTitleEn || c.articleTitle || (mapTitle && (mapTitle.titleEn || mapTitle.title)) || c.article;
               const parentComment = c.parent ? comments.find((p) => p.id === c.parent) : null;
               return (
                 <div key={c.id} className={`rounded-md border bg-card p-4 transition-colors ${c.approved ? '' : 'border-destructive/40'}`}>

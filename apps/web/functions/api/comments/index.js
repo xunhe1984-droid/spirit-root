@@ -39,12 +39,11 @@ export async function onRequestGet(context) {
       if (!checkAdmin(context)) {
         return json({ error: 'unauthorized' }, { status: 401 });
       }
+      // 注意：不依赖 articles 表（D1 里只建了 comments），文章标题由前端按 slug 解析
       const { results } = await context.env.DB.prepare(
-        `SELECT c.id, c.article, c.authorName, c.authorEmail, c.body, c.parent, c.created, c.approved,
-                COALESCE(a.title, '') as articleTitle, COALESCE(a.titleEn, '') as articleTitleEn
-         FROM comments c
-         LEFT JOIN articles a ON c.article = a.id
-         ORDER BY c.created DESC`
+        `SELECT id, article, authorName, authorEmail, body, parent, created, approved
+         FROM comments
+         ORDER BY created DESC`
       ).all();
       return json(results || []);
     }
